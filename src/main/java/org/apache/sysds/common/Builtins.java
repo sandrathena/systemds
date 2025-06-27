@@ -109,6 +109,8 @@ public enum Builtins {
 	CUMMIN("cummin", false),
 	CUMPROD("cumprod", false),
 	CUMSUM("cumsum", false),
+	ROWCUMSUM("rowcumsum", false),
+	//COLCUMSUM("colCumcum", "cumsum",false),
 	CUMSUMPROD("cumsumprod", false),
 	DBSCAN("dbscan", true),
 	DBSCANAPPLY("dbscanApply", true),

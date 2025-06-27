@@ -31,7 +31,7 @@ import org.apache.sysds.runtime.matrix.data.MatrixBlock;
 import org.apache.sysds.runtime.util.DataConverter;
 import org.apache.sysds.test.TestUtils;
 
-public class MMSparsityPerformance {
+public class MatrixMulPerformance {
 
 	private final int _rl;
 	private final int _cl;
@@ -42,11 +42,11 @@ public class MMSparsityPerformance {
 	private final float resolutionDivisor;
 	private final float maxSparsity;
 
-	public MMSparsityPerformance() {
+	public MatrixMulPerformance() {
 		this(1024, 1024, 15, 50, 18, .4f, 2f);
 	}
 
-	public MMSparsityPerformance(int rl, int cl, int warmupRuns, int repetitions,
+	public MatrixMulPerformance(int rl, int cl, int warmupRuns, int repetitions,
 		int resolution, float maxSparsity, float stepDivisor)
 	{
 		_rl = rl;
@@ -89,12 +89,10 @@ public class MMSparsityPerformance {
 		sb.append("[");
 
 		for (double el : list)
-			sb.append(el + ", ");
+			sb.append(el + ",");
 
-		if (list.length > 0){
+		if (list.length > 0)
 			sb.deleteCharAt(sb.length() - 1);
-			sb.deleteCharAt(sb.length() - 1);
-		}
 
 		sb.append("]");
 		return sb.toString();

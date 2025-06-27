@@ -56,6 +56,8 @@ public class CumulativeOffsetSPInstruction extends BinarySPInstruction {
 
 		if (Opcodes.BCUMOFFKP.toString().equals(opcode))
 			_uop = new UnaryOperator(Builtin.getBuiltinFnObject("ucumk+"));
+		else if (Opcodes.BROWCUMOFFKP.toString().equals(opcode))
+			_uop = new UnaryOperator(Builtin.getBuiltinFnObject("urowcumk+"));
 		else if (Opcodes.BCUMOFFM.toString().equals(opcode))
 			_uop = new UnaryOperator(Builtin.getBuiltinFnObject("ucum*"));
 		else if (Opcodes.BCUMOFFPM.toString().equals(opcode)) {
@@ -111,7 +113,7 @@ public class CumulativeOffsetSPInstruction extends BinarySPInstruction {
 		//execute cumulative offset (apply cumulative op w/ offsets)
 		JavaPairRDD<MatrixIndexes,MatrixBlock> out = joined
 			.mapValues(new RDDCumOffsetFunction(_uop, _cumsumprod));
-		
+
 		//put output handle in symbol table
 		if( _cumsumprod )
 			sec.getDataCharacteristics(output.getName())

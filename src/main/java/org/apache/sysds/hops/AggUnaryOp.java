@@ -323,18 +323,10 @@ public class AggUnaryOp extends MultiThreadedHop
 		DataCharacteristics ret = null;
 		Hop input = getInput().get(0);
 		DataCharacteristics dc = memo.getAllInputStats(input);
-		if( _op == AggOp.UNIQUE ) {
-			if( _direction == Direction.RowCol && dc.rowsKnown() )
-				ret = new MatrixCharacteristics(dc.getRows(), 1, -1, -1);
-			else
-				ret = new MatrixCharacteristics(dc.getRows(), dc.getCols(), -1, -1);
-		}
-		else {
-			if( _direction == Direction.Col && dc.colsKnown() )
-				ret = new MatrixCharacteristics(1, dc.getCols(), -1, -1);
-			else if( _direction == Direction.Row && dc.rowsKnown() )
-				ret = new MatrixCharacteristics(dc.getRows(), 1, -1, -1);
-		}
+		if( _direction == Direction.Col && dc.colsKnown() )
+			ret = new MatrixCharacteristics(1, dc.getCols(), -1, -1);
+		else if( _direction == Direction.Row && dc.rowsKnown() )
+			ret = new MatrixCharacteristics(dc.getRows(), 1, -1, -1);
 		return ret;
 	}
 	
@@ -656,23 +648,9 @@ public class AggUnaryOp extends MultiThreadedHop
 	@Override
 	public void refreshSizeInformation()
 	{
-		Hop input = getInput().get(0);
-		if( _op == AggOp.UNIQUE ) {
-			if ( _direction == Direction.Col ) {
-				setDim1(-1); //unknown num unique
-				setDim2(input.getDim2());
-			}
-			else if ( _direction == Direction.Row ) {
-				setDim1(input.getDim1());
-				setDim2(-1); //unknown num unique
-			}
-			else {
-				setDim1(-1);
-				setDim2(1);
-			}
-		}
-		//general case: all other unary aggregations 
-		else if (getDataType() != DataType.SCALAR) {
+		if (getDataType() != DataType.SCALAR)
+		{
+			Hop input = getInput().get(0);
 			if ( _direction == Direction.Col ) //colwise computations
 			{
 				setDim1(1);

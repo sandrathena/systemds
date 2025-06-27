@@ -30,7 +30,7 @@ from systemds.scuro.representations.fusion import Fusion
 
 
 class RowMax(Fusion):
-    def __init__(self, split=4):
+    def __init__(self, split=1):
         """
         Combines modalities by computing the outer product of a modality combination and
         taking the row max
@@ -38,12 +38,9 @@ class RowMax(Fusion):
         super().__init__("RowMax")
         self.split = split
 
-    def transform(
-        self,
-        modalities: List[Modality],
-    ):
+    def transform(self, modalities: List[Modality]):
         if len(modalities) < 2:
-            return np.array(modalities[0].data)
+            return np.array(modalities)
 
         max_emb_size = self.get_max_embedding_size(modalities)
 

@@ -1665,8 +1665,7 @@ public abstract class AutomatedTestBase {
 			"--add-opens=java.base/java.lang=ALL-UNNAMED" ,
 			"--add-opens=java.base/java.lang.ref=ALL-UNNAMED" ,
 			"--add-opens=java.base/java.util.concurrent=ALL-UNNAMED" ,
-			"--add-opens=java.base/sun.nio.ch=ALL-UNNAMED",
-			"--add-modules=jdk.incubator.vector",};
+			"--add-opens=java.base/sun.nio.ch=ALL-UNNAMED",};
 
 		RuntimeMXBean runtimeMxBean = ManagementFactory.getRuntimeMXBean();
 		List<String> jvmArgs = runtimeMxBean.getInputArguments();

@@ -24,6 +24,8 @@ import shutil
 import unittest
 
 from systemds.scuro.modality.joined import JoinCondition
+from systemds.scuro.representations.aggregate import Aggregation
+from systemds.scuro.representations.window import WindowAggregation
 from systemds.scuro.modality.unimodal_modality import UnimodalModality
 from systemds.scuro.representations.mel_spectrogram import MelSpectrogram
 from systemds.scuro.representations.resnet import ResNet

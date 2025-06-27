@@ -542,7 +542,7 @@ public interface Types {
 		ABS, ACOS, ASIN, ASSERT, ATAN, BROADCAST,
 		CAST_AS_FRAME, CAST_AS_LIST, CAST_AS_MATRIX, CAST_AS_SCALAR,
 		CAST_AS_BOOLEAN, CAST_AS_DOUBLE, CAST_AS_INT,
-		CEIL, CHOLESKY, COS, COSH, CUMMAX, CUMMIN, CUMPROD, CUMSUM,
+		CEIL, CHOLESKY, COS, COSH, CUMMAX, CUMMIN, CUMPROD, CUMSUM, ROWCUMSUM,
 		CUMSUMPROD, DET, DETECTSCHEMA, COLNAMES, EIGEN, EXISTS, EXP, FLOOR, INVERSE,
 		IQM, ISNA, ISNAN, ISINF, LENGTH, LINEAGE, LOG, NCOL, NOT, NROW,
 		MEDIAN, PREFETCH, PRINT, ROUND, SIN, SINH, SIGN, SOFTMAX, SQRT, STOP, _EVICT,
@@ -583,6 +583,7 @@ public interface Types {
 				case CUMMIN:          return Opcodes.UCUMMIN.toString();
 				case CUMPROD:         return Opcodes.UCUMM.toString();
 				case CUMSUM:          return Opcodes.UCUMKP.toString();
+				case ROWCUMSUM:		  return Opcodes.UROWCUMKP.toString();
 				case CUMSUMPROD:      return Opcodes.UCUMKPM.toString();
 				case DET:             return Opcodes.DET.toString();
 				case DETECTSCHEMA:    return Opcodes.DETECTSCHEMA.toString();
@@ -608,6 +609,7 @@ public interface Types {
 				case "ucummin": return CUMMIN;
 				case "ucum*":   return CUMPROD;
 				case "ucumk+":  return CUMSUM;
+				case "urowcumk+": 		return ROWCUMSUM;
 				case "ucumk+*": return CUMSUMPROD;
 				case "detectSchema":    return DETECTSCHEMA;
 				case "*2":      return MULT2;

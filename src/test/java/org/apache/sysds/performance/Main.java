@@ -33,8 +33,7 @@ import org.apache.sysds.performance.generators.IGenerate;
 import org.apache.sysds.performance.generators.MatrixFile;
 import org.apache.sysds.performance.matrix.MatrixAppend;
 import org.apache.sysds.performance.matrix.MatrixBinaryCellPerf;
-import org.apache.sysds.performance.matrix.MatrixMultiplicationPerf;
-import org.apache.sysds.performance.matrix.MMSparsityPerformance;
+import org.apache.sysds.performance.matrix.MatrixMulPerformance;
 import org.apache.sysds.performance.matrix.MatrixReplacePerf;
 import org.apache.sysds.performance.matrix.MatrixStorage;
 import org.apache.sysds.performance.matrix.ReshapePerf;
@@ -140,9 +139,6 @@ public class Main {
 			case 1008:
 				MatrixAppend.main(args);
 				break;
-			case 1009:
-				MatrixMultiplicationPerf.main(args);
-				break;
 			default:
 				break;
 		}
@@ -239,9 +235,9 @@ public class Main {
 	}
 
 	private static void run1000(String[] args) {
-		MMSparsityPerformance perf;
+		MatrixMulPerformance perf;
 		if (args.length < 3) {
-			perf = new MMSparsityPerformance();
+			perf = new MatrixMulPerformance();
 		} else {
 			// ... <rl> <cl> [resolution] [maxSparsity] [resolution] [warmupRuns] [repetitions]
 			int rl = Integer.parseInt(args[1]);
@@ -260,7 +256,7 @@ public class Main {
 			if (args.length > 6)
 				repetitions = Integer.parseInt(args[6]);
 
-			perf = new MMSparsityPerformance(rl, cl, warmupRuns, repetitions, resolution, maxSparsity, 2f);
+			perf = new MatrixMulPerformance(rl, cl, warmupRuns, repetitions, resolution, maxSparsity, 2f);
 		}
 
 		perf.testSparseFormat(null, null);

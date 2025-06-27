@@ -1,4 +1,4 @@
-#-------------------------------------------------------------
+# -------------------------------------------------------------
 #
 # Licensed to the Apache Software Foundation (ASF) under one
 # or more contributor license agreements.  See the NOTICE file
@@ -17,12 +17,24 @@
 # specific language governing permissions and limitations
 # under the License.
 #
-#-------------------------------------------------------------
-A = read($1);
-a = as.scalar(read($2));
-b = as.scalar(read($3));
+# -------------------------------------------------------------
+from aligner.similarity_measures import Measure
 
-# Original form: a + A - b
-R = a + A - b;
 
-write(R, $4);
+class AlignmentStrategy:
+    def __init__(self):
+        pass
+
+    def align_chunk(self, chunk_a, chunk_b, similarity_measure: Measure):
+        raise "Not implemented error"
+
+
+class ChunkedCrossCorrelation(AlignmentStrategy):
+    def __init__(self):
+        super().__init__()
+
+    def align_chunk(self, chunk_a, chunk_b, similarity_measure: Measure):
+        raise "Not implemented error"
+
+
+# TODO: Add additional alignment methods

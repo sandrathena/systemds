@@ -27,7 +27,6 @@ import org.apache.sysds.runtime.matrix.data.MatrixValue.CellIndex;
 import org.apache.sysds.test.AutomatedTestBase;
 import org.apache.sysds.test.TestConfiguration;
 import org.apache.sysds.test.TestUtils;
-import org.apache.sysds.utils.Statistics;
 import org.junit.Assert;
 
 import java.util.HashMap;
@@ -39,7 +38,6 @@ public class SizePropagationTest extends AutomatedTestBase
 	private static final String TEST_NAME3 = "SizePropagationLoopIx2";
 	private static final String TEST_NAME4 = "SizePropagationLoopIx3";
 	private static final String TEST_NAME5 = "SizePropagationLoopIx4";
-	private static final String TEST_NAME6 = "SizePropagationUnique";
 	
 	private static final String TEST_DIR = "functions/misc/";
 	private static final String TEST_CLASS_DIR = TEST_DIR + SizePropagationTest.class.getSimpleName() + "/";
@@ -54,7 +52,6 @@ public class SizePropagationTest extends AutomatedTestBase
 		addTestConfiguration( TEST_NAME3, new TestConfiguration(TEST_CLASS_DIR, TEST_NAME3, new String[] { "R" }) );
 		addTestConfiguration( TEST_NAME4, new TestConfiguration(TEST_CLASS_DIR, TEST_NAME4, new String[] { "R" }) );
 		addTestConfiguration( TEST_NAME5, new TestConfiguration(TEST_CLASS_DIR, TEST_NAME5, new String[] { "R" }) );
-		addTestConfiguration( TEST_NAME6, new TestConfiguration(TEST_CLASS_DIR, TEST_NAME6, new String[] { "R" }) );
 	}
 
 	@Test
@@ -107,16 +104,6 @@ public class SizePropagationTest extends AutomatedTestBase
 		testSizePropagation( TEST_NAME5, true, N );
 	}
 	
-	@Test
-	public void testSizePropagationUnique1() {
-		testSizePropagation( TEST_NAME6, false, 10 );
-	}
-	
-	@Test
-	public void testSizePropagationUnique2() {
-		testSizePropagation( TEST_NAME6, false, 10 );
-	}
-	
 	private void testSizePropagation( String testname, boolean rewrites, int expect ) {
 		boolean oldFlag = OptimizerUtils.ALLOW_ALGEBRAIC_SIMPLIFICATION;
 		ExecMode oldPlatform = rtplatform;
@@ -135,8 +122,6 @@ public class SizePropagationTest extends AutomatedTestBase
 			runTest(true, false, null, -1); 
 			HashMap<CellIndex, Double> dmlfile = readDMLMatrixFromOutputDir("R");
 			Assert.assertEquals(Double.valueOf(expect), dmlfile.get(new CellIndex(1,1)));
-			if( testname.equals(TEST_NAME6) )
-				Assert.assertEquals(0, Statistics.getNoOfCompiledSPInst());
 		}
 		finally {
 			OptimizerUtils.ALLOW_ALGEBRAIC_SIMPLIFICATION = oldFlag;
